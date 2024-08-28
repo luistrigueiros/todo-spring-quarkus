@@ -2,8 +2,8 @@ package io.quarkus.todospringquarkus;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,16 +1,52 @@
+apply plugin: 'java'
+
 group 'io.quarkus'
 version '1.0.0-SNAPSHOT'
-sourceCompatibility = '11'
-targetCompatibility = '11'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
-	mavenLocal()
-	mavenCentral()
-	maven {
-		url 'https://maven.repository.redhat.com/ga'
-	}
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'https://maven.repository.redhat.com/ga'
+    }
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    runtimeOnly 'com.h2database:h2'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'io.rest-assured:rest-assured'
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

@@ -1,42 +1,41 @@
 plugins {
-	id 'java'
-	id 'io.quarkus' version '2.10.0.Final'
+	id 'io.quarkus'
 }
 
 apply from: 'build-common.gradle'
 
-ext {
-	quarkusVersion = '2.10.0.Final'
-	springVersion = '2.7.1'
-}
-
-compileJava {
-	options.encoding = 'UTF-8'
-	options.compilerArgs << '-parameters'
-}
-
-compileTestJava {
-	options.encoding = 'UTF-8'
-}
 
 dependencies {
 	// This dependency is a hack for TodoApplication.java, which isn't required for Quarkus. Point of demo is to NOT have any code changes.
 	// It won't actually be included in the binary that gets built (compileOnly configuration)
-	compileOnly "org.springframework.boot:spring-boot-autoconfigure:$springVersion"
-	implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:$quarkusVersion")
-	implementation 'io.quarkus:quarkus-spring-web'
-	implementation 'io.quarkus:quarkus-spring-data-jpa'
-	implementation 'io.quarkus:quarkus-spring-boot-properties'
+	//compileOnly "org.springframework.boot:spring-boot-autoconfigure:$springVersion"
+
+	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+	implementation enforcedPlatform("${quarkusPlatformGroupId}:quarkus-camel-bom:${quarkusPlatformVersion}")
+
 	implementation 'io.quarkus:quarkus-smallrye-openapi'
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	implementation 'io.quarkus:quarkus-openshift'
 	implementation 'io.quarkus:quarkus-micrometer-registry-prometheus'
 	implementation 'io.quarkus:quarkus-jdbc-h2'
 	implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+
+
+	implementation 'org.apache.camel.quarkus:camel-quarkus-spring-rabbitmq'
+	implementation 'io.quarkus:quarkus-spring-cache'
+	implementation 'io.quarkus:quarkus-spring-security'
+	implementation 'io.quarkus:quarkus-spring-data-rest'
+	implementation 'io.quarkus:quarkus-spring-scheduled'
+	implementation 'io.quarkus:quarkus-spring-di'
+	implementation 'io.quarkus:quarkus-spring-web'
+	implementation 'io.quarkus:quarkus-spring-cloud-config-client'
+	implementation 'io.quarkus:quarkus-spring-data-jpa'
+	implementation 'io.quarkus:quarkus-spring-boot-properties'
+	implementation 'io.quarkus:quarkus-arc'
+	implementation 'io.quarkus:quarkus-rest-jackson'
+
 	testImplementation 'io.quarkus:quarkus-junit5'
 	testImplementation 'io.quarkus:quarkus-junit5-mockito'
-	testImplementation 'io.rest-assured:rest-assured'
-	testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 quarkusBuild {
@@ -47,3 +46,7 @@ quarkusBuild {
 }
 
 task bootRun(dependsOn: 'quarkusDev')
+
+test {
+	systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
