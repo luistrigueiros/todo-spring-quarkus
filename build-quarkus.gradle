@@ -8,7 +8,7 @@ apply from: 'build-common.gradle'
 dependencies {
 	// This dependency is a hack for TodoApplication.java, which isn't required for Quarkus. Point of demo is to NOT have any code changes.
 	// It won't actually be included in the binary that gets built (compileOnly configuration)
-	//compileOnly "org.springframework.boot:spring-boot-autoconfigure:$springVersion"
+	compileOnly "org.springframework.boot:spring-boot-autoconfigure:$springVersion"
 
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:quarkus-camel-bom:${quarkusPlatformVersion}")
@@ -18,13 +18,13 @@ dependencies {
 	implementation 'io.quarkus:quarkus-openshift'
 	implementation 'io.quarkus:quarkus-micrometer-registry-prometheus'
 	implementation 'io.quarkus:quarkus-jdbc-h2'
-	implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+//	implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
 
 
-	implementation 'org.apache.camel.quarkus:camel-quarkus-spring-rabbitmq'
+//	implementation 'org.apache.camel.quarkus:camel-quarkus-spring-rabbitmq'
 	implementation 'io.quarkus:quarkus-spring-cache'
 	implementation 'io.quarkus:quarkus-spring-security'
-	implementation 'io.quarkus:quarkus-spring-data-rest'
+//	implementation 'io.quarkus:quarkus-spring-data-rest'
 	implementation 'io.quarkus:quarkus-spring-scheduled'
 	implementation 'io.quarkus:quarkus-spring-di'
 	implementation 'io.quarkus:quarkus-spring-web'

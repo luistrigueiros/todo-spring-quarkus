@@ -34,16 +34,17 @@ configurations {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
 
     runtimeOnly 'com.h2database:h2'
 
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testImplementation 'org.assertj:assertj-core'
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
     testImplementation 'io.rest-assured:rest-assured'
 }
 
